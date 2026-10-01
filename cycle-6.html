@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cycle 6 - Commercial Energy Efficiency</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#1C1E21; --sub:#6B7280; --line:#EDEBE7;
+  --bg:#FAF9F6; --card:#FFFFFF;
+  --accent:#2563EB; --accent-soft:#EFF4FF;
+  --good:#15803D; --good-soft:#EAF7EE;
+}
+*{box-sizing:border-box;}
+body{ margin:0; font-family:'Inter', sans-serif; color:var(--ink); background:var(--bg); -webkit-font-smoothing:antialiased; }
+.frame{ max-width:760px; margin:0 auto; padding:28px 20px 70px; }
+
+.nav-pills{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:28px; }
+.pill{ display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:var(--sub); font-size:12.5px; font-weight:600; }
+.pill.num{ width:26px; height:26px; border-radius:50%; background:var(--card); border:1px solid var(--line); }
+.pill.num:hover{ border-color:var(--accent); color:var(--accent); }
+.pill.num.active{ background:var(--accent); color:#fff; border-color:var(--accent); }
+.pill.text{ padding:0 10px; }
+.nav-sep{ width:1px; height:14px; background:var(--line); margin:0 4px; }
+
+h1.pagetitle{ font-family:'Manrope', sans-serif; font-weight:800; font-size:30px; margin:0 0 6px; letter-spacing:-0.01em; }
+.tagline{ color:var(--sub); font-size:14.5px; max-width:65ch; margin:0 0 14px; }
+.tags{ display:flex; gap:6px; flex-wrap:wrap; margin-bottom:30px; }
+.tag{ font-size:11.5px; font-weight:600; color:var(--accent); background:var(--accent-soft); padding:4px 9px; border-radius:999px; }
+
+.ref-section{ margin-bottom:26px; padding-bottom:26px; border-bottom:1px solid var(--line); }
+.ref-section h3{ font-family:'Manrope', sans-serif; font-size:15px; font-weight:700; margin:0 0 14px; }
+
+.fw-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media (max-width:600px){ .fw-cols{ grid-template-columns:1fr; } }
+.fw-std{ font-size:11px; color:var(--accent); font-weight:700; margin-bottom:6px; }
+.fw-cols h5{ font-size:10.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--sub); margin:10px 0 5px; font-weight:700; }
+.fw-cols ul{ margin:0; padding-left:16px; }
+.fw-cols li{ font-size:13px; margin-bottom:4px; color:#333; }
+
+.obj-row{ display:flex; gap:22px; flex-wrap:wrap; }
+.obj-item{ flex:1; min-width:180px; }
+.obj-item .lvl{ font-size:10.5px; font-weight:800; text-transform:uppercase; color:var(--accent); letter-spacing:.05em; margin-bottom:4px; }
+.obj-item p{ margin:0; font-size:13px; color:#333; }
+
+.lesson-list{ margin:0; padding:0; list-style:none; }
+.lesson-list li{ display:block; padding:7px 0; font-size:13px; }
+.lesson-list .d{ color:var(--sub); font-weight:600; font-size:11.5px; }
+.lesson-list strong{ font-weight:600; }
+.lesson-list span.desc{ color:var(--sub); }
+
+.chip-row{ display:flex; flex-wrap:wrap; gap:6px; }
+.chip{ font-size:12px; background:var(--card); border:1px solid var(--line); padding:4px 10px; border-radius:999px; color:#444; }
+
+.section-label{ font-family:'Manrope', sans-serif; font-size:15px; font-weight:700; margin:0 0 12px; }
+.card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:14px; }
+
+.assign{ border:1px solid var(--line); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+.assign:last-child{ margin-bottom:0; }
+.assign-top{ display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; gap:10px; }
+.assign-top:hover{ background:#fafafa; }
+.assign-top h4{ margin:0 0 3px; font-size:14px; font-weight:600; }
+.assign-top .sub{ font-size:12px; color:var(--sub); font-weight:400; }
+.assign-left{ min-width:0; }
+.assign-meta{ display:flex; align-items:center; gap:8px; flex:none; }
+.cls-link{ font-size:12.5px; font-weight:700; color:#fff; background:var(--accent); border:none; padding:7px 14px; border-radius:9px; text-decoration:none; white-space:nowrap;}
+.cls-link:hover{ background:#1d4fd1; }
+.caret{ color:var(--sub); font-size:12px; transition:transform .15s ease; }
+.assign-top.open .caret{ transform:rotate(90deg); }
+.assign-body{ padding:0 16px 15px; display:none; font-size:13px; }
+.assign-body.open{ display:block; }
+.assign-desc{ color:#333; margin:0 0 10px; }
+.tier-row{ display:grid; grid-template-columns:90px 1fr; gap:12px; padding:9px 0; border-top:1px solid var(--line); font-size:13px; }
+.tier-row:first-of-type{ border-top:none; }
+.tier-badge{ font-size:10px; font-weight:800; text-transform:uppercase; padding:3px 0; border-radius:6px; text-align:center; height:fit-content; }
+.tier-badge.min{ background:#F1F2F4; color:#4B5563; }
+.tier-badge.prof{ background:var(--accent-soft); color:var(--accent); }
+.tier-badge.adv{ background:var(--good-soft); color:var(--good); }
+
+.quiz-link-card{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.quiz-link-btn{ font-size:12.5px; font-weight:700; color:#fff; background:var(--accent); padding:9px 16px; border-radius:9px; text-decoration:none; white-space:nowrap; }
+
+.project-card{ background:linear-gradient(135deg, var(--accent-soft), #fff); }
+.project-card p{ margin:0; font-size:13.5px; color:#333; }
+.placeholder-badge{ display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#92400E; background:#FEF3C7; padding:3px 9px; border-radius:999px; margin-left:8px; vertical-align:middle; }
+.placeholder-banner{ font-size:12.5px; color:#92400E; background:#FEF3C7; border-radius:10px; padding:10px 14px; margin-bottom:20px; }
+
+.quiz-q{ margin-bottom:14px; padding-bottom:13px; border-bottom:1px solid var(--line); }
+.quiz-q:last-of-type{ border-bottom:none; margin-bottom:0; padding-bottom:0; }
+.quiz-q-head{ display:flex; align-items:baseline; gap:8px; margin-bottom:7px; }
+.quiz-q-num{ font-weight:700; font-size:13.5px; }
+.quiz-std{ font-size:10px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:2px 7px; border-radius:999px; }
+.quiz-opts{ list-style:none; margin:0; padding:0; display:grid; gap:4px; }
+.quiz-opts li{ font-size:13px; color:#333; padding-left:20px; position:relative; }
+.quiz-opts li .let{ position:absolute; left:0; font-weight:700; color:var(--sub); }
+.quiz-key-toggle{ all:unset; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--accent); background:var(--accent-soft); padding:8px 14px; border-radius:8px; display:inline-block; margin-top:10px; }
+.quiz-key{ display:none; margin-top:14px; padding:14px 16px; background:var(--bg); border-radius:10px; font-size:12.5px; }
+.quiz-key.open{ display:block; }
+.quiz-key div{ margin-bottom:4px; }
+.quiz-key div:last-child{ margin-bottom:0; }
+.quiz-jump{ display:block; padding:9px 13px; border-radius:10px; background:var(--bg); text-decoration:none; color:var(--ink); font-size:13px; font-weight:600; margin-bottom:7px; }
+.quiz-jump:hover{ background:var(--accent-soft); color:var(--accent); }
+
+.std-group{ margin-bottom:22px; }
+.std-group:last-child{ margin-bottom:0; }
+.std-head{ display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.std-code{ font-size:11px; font-weight:800; color:#fff; background:var(--accent); padding:2px 8px; border-radius:6px; }
+.std-name{ font-size:13.5px; font-weight:700; }
+.std-count{ font-size:11.5px; color:var(--sub); margin-left:auto; }
+.std-summary{ font-size:13px; color:#333; margin:0 0 10px; }
+.check-list{ margin:0; padding:0; list-style:none; }
+.check-list li{ display:flex; align-items:flex-start; gap:9px; padding:4px 0; font-size:13px; color:#333; }
+.check-list input{ margin-top:3px; flex:none; }
+
+.exam-block{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin-bottom:16px; }
+
+.col-2{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width:640px){ .col-2{ grid-template-columns:1fr; } }
+.dir-card{ display:flex; flex-direction:column; justify-content:center; min-height:78px; text-decoration:none; color:inherit; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 15px; margin-bottom:10px; transition:border-color .15s ease; }
+.dir-card:hover{ border-color:var(--accent); }
+.dir-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:3px; }
+.dir-card h4{ margin:0; font-size:13.5px; }
+.dir-badge{ font-size:9.5px; font-weight:700; text-transform:uppercase; padding:2px 7px; border-radius:999px; white-space:nowrap; background:var(--good-soft); color:var(--good); }
+.dir-card p{ margin:0; font-size:11.5px; color:var(--sub); }
+.dir-overview{ background:linear-gradient(135deg, var(--accent-soft), #fff); border-color:transparent; margin-bottom:22px; }
+.dir-dsa{ background:linear-gradient(135deg, var(--good-soft), #fff); border-color:transparent; }
+.dir-dsa .dir-badge{ background:#fff; }
+
+.steps-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; }
+@media (max-width:640px){ .steps-row{ grid-template-columns:1fr 1fr; } }
+.step .num{ font-family:'Manrope',sans-serif; font-weight:800; font-size:20px; color:var(--accent); margin-bottom:6px; }
+.step h4{ margin:0 0 4px; font-size:13.5px; }
+.step p{ margin:0; font-size:12.5px; color:var(--sub); }
+
+.tier-legend-row{ display:flex; gap:24px; flex-wrap:wrap; margin-bottom:16px; }
+.tier-legend-item{ flex:1; min-width:170px; }
+.tier-legend-item .name{ font-weight:800; font-size:12px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:2px; }
+.tier-legend-item.min .name{ color:#4B5563; } .tier-legend-item.prof .name{ color:var(--accent); } .tier-legend-item.adv .name{ color:var(--good); }
+.tier-legend-item .pts{ font-size:20px; font-weight:800; margin-bottom:4px; }
+.tier-legend-item p{ margin:0; font-size:12.5px; color:var(--sub); }
+.grade-note{ font-size:13px; color:var(--sub); margin:0; }
+
+footer.pagefoot{ text-align:center; font-size:11.5px; color:var(--sub); margin-top:24px; }
+
+.rubric-wrap{ overflow-x:auto; margin-bottom:16px; }
+.rubric-wrap:last-child{ margin-bottom:0; }
+table.rubric{ width:100%; border-collapse:collapse; font-size:11.5px; min-width:640px; }
+table.rubric th{ background:var(--accent); color:#fff; font-size:10.5px; text-transform:uppercase; letter-spacing:.03em; padding:8px 9px; text-align:left; font-weight:700; }
+table.rubric td{ padding:8px 9px; border:1px solid var(--line); vertical-align:top; line-height:1.35; }
+table.rubric td.cat{ background:var(--bg); font-weight:700; color:var(--accent); white-space:nowrap; }
+.rubric-title{ font-family:'Manrope', sans-serif; font-size:14px; font-weight:700; margin:14px 0 8px; color:var(--ink); }
+.rubric-title:first-child{ margin-top:0; }
+
+.critique-card{ border:1.5px solid var(--accent); background:var(--accent-soft); }
+.critique-badge{ display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:#fff; background:var(--accent); padding:3px 9px; border-radius:999px; margin-bottom:8px; }
+.critique-format{ display:flex; gap:16px; flex-wrap:wrap; margin:10px 0 12px; }
+.critique-format-item{ font-size:12px; color:var(--sub); }
+.critique-format-item strong{ color:var(--ink); }
+.critique-list{ margin:0; padding-left:18px; background:#fff; border-radius:10px; padding:12px 14px 12px 30px; }
+.critique-list li{ font-size:13px; color:#333; margin-bottom:7px; }
+.critique-list li:last-child{ margin-bottom:0; }
+.critique-grade-note{ font-size:12px; color:var(--sub); margin-top:10px; }
+
+.assign.project-assign{ border-color:#DDD6FE; }
+.project-sq{ width:10px; height:10px; border-radius:2px; background:#7C3AED; display:inline-block; margin-right:8px; flex:none; }
+.project-assign .assign-left h4{ display:flex; align-items:center; }
+
+</style>
+
+</head>
+<body>
+<div class="frame">
+  <div class="nav-pills">
+    <a class="pill text" href="home.html" style="color:var(--sub); font-weight:600;">&#8962; Home</a>
+    <div class="nav-sep"></div>
+    <span class="pill text" style="color:var(--ink); font-weight:700;">Cycle</span>
+    <a class="pill num" href="cycle-1.html">1</a><a class="pill num" href="cycle-2.html">2</a><a class="pill num" href="cycle-3.html">3</a><a class="pill num" href="cycle-4.html">4</a><a class="pill num" href="cycle-5.html">5</a><a class="pill num active" href="cycle-6.html">6</a><a class="pill num" href="cycle-7.html">7</a><a class="pill num" href="cycle-8.html">8</a><a class="pill num" href="cycle-9.html">9</a><a class="pill num" href="cycle-10.html">10</a>
+  </div>
+  <h1 class="pagetitle">Cycle 6 - Commercial Energy Efficiency</h1>
+  <p class="tagline">Architects have a significant role in how much energy buildings need. Climate, code, and design choices all matter.</p>
+  <div class="tags"><span class="tag">12.6.1</span><span class="tag">12.6.2</span><span class="tag">12.6.3</span><span class="tag">12.9</span></div>
+<div class="ref-section"><h3>Learning Objectives</h3><div class="obj-row">
+<div class="obj-item"><div class="lvl">Understand</div><p>Explain why buildings need to be energy efficient, how R-value and U-value relate, and how Net Zero and Passive House differ from the IECC.</p></div>
+<div class="obj-item"><div class="lvl">Apply</div><p>Determine a site&#x27;s climate zone, apply IECC requirements to a design, and use sustainability principles in the design process.</p></div>
+<div class="obj-item"><div class="lvl">Create</div><p>Create an energy summary for a commercial building comparing assemblies and strategies.</p></div>
+</div></div><div class="ref-section"><div class="assign"><div class="assign-top" onclick="toggleAssign(this)"><div class="assign-left"><h4>Big Ideas &amp; Essential Questions</h4></div><div class="assign-meta"><span class="caret">&#9656;</span></div></div><div class="assign-body"><div class="fw-cols"><div>
+          <div class="fw-std">12.6 - Commercial Energy Efficiency</div>
+          <h5>Big Idea(s)</h5><ul><li>Architects have a significant role in reducing energy needs for the built environment.</li></ul>
+          <h5>Essential Question(s)</h5><ul><li>Why do buildings need to be energy efficient?</li><li>How does climate and location affect how a structure is insulated?</li></ul>
+        </div></div></div></div></div><div class="ref-section"><div class="assign"><div class="assign-top" onclick="toggleAssign(this)"><div class="assign-left"><h4>Lesson Outline</h4></div><div class="assign-meta"><span class="caret">&#9656;</span></div></div><div class="assign-body"><ul class="lesson-list"><li><span><strong>Why Energy Efficiency</strong><br><span class="desc">Major energy uses in buildings and how sustainable design reduces consumption.</span></span></li><li><span><strong>Climate Zones &amp; the IECC</strong><br><span class="desc">Determining a site&#x27;s climate zone; IECC general requirements and commercial energy efficiency.</span></span></li><li><span><strong>R-Value, U-Value &amp; SHGC</strong><br><span class="desc">R-value vs. U-value, interpreting R-value levels, and solar heat gain coefficient.</span></span></li><li><span><strong>Fundamentals of Sustainability</strong><br><span class="desc">Location and Transportation, Sustainable Site, Water Efficiency, Energy and Atmosphere, Materials and Resources, Indoor Environmental Quality, Carbon Sequestration. Cost savings of green strategies and the best phase to apply them.</span></span></li><li><span><strong>Beyond Code</strong><br><span class="desc">Passive House and Net Zero, and how each differs from the IECC.</span></span></li><li><span><strong>Studio Work Day</strong><br><span class="desc">Apply the IECC to one of your assemblies and propose strategies.</span></span></li><li><span><strong>Wrap-Up</strong><br><span class="desc">Finish your energy summary. Review for the cycle.</span></span></li></ul><p style="font-size:12px; color:var(--sub); font-style:italic; margin:12px 0 0;">This is a rough outline and is subject to change.</p></div></div></div><div class="ref-section"><h3>Vocabulary</h3><div class="chip-row"><span class="chip">IECC</span><span class="chip">R-value</span><span class="chip">U-value</span><span class="chip">Heat Gain coefficient</span><span class="chip">Location</span><span class="chip">Transportation</span><span class="chip">Sustainable site</span><span class="chip">Water efficiency</span><span class="chip">Energy and atmosphere</span><span class="chip">Materials and resources</span><span class="chip">Indoor environmental quality</span><span class="chip">Carbon sequestration</span><span class="chip">Passive House</span><span class="chip">Net Zero</span></div></div><div class="ref-section"><h3>BIM &amp; Rendering Thread</h3>
+<p style="font-size:13.5px; color:#333; margin:0;">Use the custom assemblies you built in Cycle 5 as the starting point for your energy comparisons; update their layers in Revit as you test options.</p></div><div class="ref-section"><h3>Professional Practice Thread (12.9)</h3>
+<p style="font-size:13.5px; color:#333; margin:0;">Evaluate quality and completeness (12.9.2): check your calculations against the code table before you submit; show your work so a reviewer can follow it.</p></div><p class="section-label">Design Project</p>
+<div class="placeholder-banner">Capstone project details for Grade 12 are still being set. Each cycle's deliverable and check-in rubric will appear here once the project is finalized.</div><p class="section-label">Independent Assignments</p><div class="assign">
+          <div class="assign-top" onclick="toggleAssign(this)">
+            <div class="assign-left"><h4>Reading + Guided Notes</h4><div class="sub">Sustainability and Green Building</div></div>
+            <div class="assign-meta"><span class="caret">&#9656;</span></div>
+          </div>
+          <div class="assign-body"><p class="assign-desc">Read the sections on sustainability, green building, LEED, and the 2030 Challenge. Complete guided notes tying each to the sustainability categories you are studying.</p><p style="font-size:11.5px; color:var(--sub); margin:8px 0 10px;"><em>Source/materials: Building Construction Illustrated, Chapter 1: Sections 1.03 Sustainability, 1.04 Green Building, 1.05 LEED Green Building Rating System, 1.06 The 2030 Challenge (Chapter 1 begins on PDF p. 11). The IECC commercial provisions and climate zone map, Passive House, and Net Zero: source TBD.</em></p><div class="rubric-wrap"><table class="rubric"><tr><th>Level</th><th>Description</th></tr><tr><td class="cat">Beginning</td><td>Notes largely incomplete; sustainability categories not identified.</td></tr><tr><td class="cat">Developing</td><td>Mostly complete; connections to energy use are vague.</td></tr><tr><td class="cat">Proficient</td><td>Complete and accurate; explains how each strategy reduces energy use or environmental impact.</td></tr><tr><td class="cat">Exemplary</td><td>All Proficient criteria met, plus applies a strategy from the reading to a building you know.</td></tr></table></div></div>
+        </div><div class="assign"><div class="assign-top" onclick="toggleAssign(this)"><div class="assign-left"><h4>Reflection Check-In</h4><div class="sub">Formative - complete after Reading &amp; Guided Notes</div></div><div class="assign-meta"><span class="caret">&#9656;</span></div></div><div class="assign-body"><p class="assign-desc">Formative: not scored on the rubric scale. A checkpoint before moving into hands-on work. Write a few sentences for each prompt.</p><ul style="margin:0; padding-left:18px; font-size:13px; color:#333;"><li>Why do buildings need to be energy efficient? Give one reason that matters to a building owner and one that matters to a community.</li><li>How does the climate where you live change the way a building should be insulated?</li></ul></div></div><div class="assign">
+          <div class="assign-top" onclick="toggleAssign(this)">
+            <div class="assign-left"><h4>Vocabulary Application</h4><div class="sub">One term - see Vocabulary list above</div></div>
+            <div class="assign-meta"><span class="caret">&#9656;</span></div>
+          </div>
+          <div class="assign-body"><p class="assign-desc">Pick one term from this cycle&#x27;s list. Write a definition in your own words, include a real-world example or photo with a two-sentence description, and explain why the term matters to a working architect.</p><p style="font-size:11.5px; color:var(--sub); margin:8px 0 10px;"><em>Source/materials: See Vocabulary list above</em></p><div class="rubric-wrap"><table class="rubric"><tr><th>Level</th><th>Description</th></tr><tr><td class="cat">Beginning</td><td>Definition missing, incorrect, or too vague.</td></tr><tr><td class="cat">Developing</td><td>Definition mostly correct but imprecise; example is generic.</td></tr><tr><td class="cat">Proficient</td><td>Correct definition in your own words, a clear real-world example, and professional relevance explained.</td></tr><tr><td class="cat">Exemplary</td><td>All Proficient criteria met, plus genuine professional insight (e.g., how the term shows up on a commercial project).</td></tr></table></div></div>
+        </div><div class="assign">
+          <div class="assign-top" onclick="toggleAssign(this)">
+            <div class="assign-left"><h4>Calculation Exercise - Assembly R-Value &amp; U-Value</h4><div class="sub">Compare assemblies against the IECC</div></div>
+            <div class="assign-meta"><span class="caret">&#9656;</span></div>
+          </div>
+          <div class="assign-body"><p class="assign-desc">For one of your Cycle 5 wall assemblies, calculate the total R-value and U-value, then compare it with the IECC requirement for your site&#x27;s climate zone. Propose a change if it falls short.</p><p style="font-size:11.5px; color:var(--sub); margin:8px 0 10px;"><em>Source/materials: Your Cycle 5 assembly; IECC table for your climate zone (source TBD)</em></p><div class="rubric-wrap"><table class="rubric"><tr><th>Level</th><th>Description</th></tr><tr><td class="cat">Beginning</td><td>Calculations missing or incorrect; no comparison to code.</td></tr><tr><td class="cat">Developing</td><td>Calculations partly correct; comparison to code unclear.</td></tr><tr><td class="cat">Proficient</td><td>R-value and U-value correctly calculated and compared to the IECC requirement; assembly change proposed if needed.</td></tr><tr><td class="cat">Exemplary</td><td>All Proficient criteria met, plus compares two assembly options with a recommendation.</td></tr></table></div></div>
+        </div><div class="assign">
+          <div class="assign-top" onclick="toggleAssign(this)">
+            <div class="assign-left"><h4>Design Principles</h4><div class="sub">Passive design principles</div></div>
+            <div class="assign-meta"><span class="caret">&#9656;</span></div>
+          </div>
+          <div class="assign-body"><p class="assign-desc">Choose a commercial building and identify three design principles it uses (or should use) to reduce energy use. Explain each in a labeled diagram.</p><p style="font-size:11.5px; color:var(--sub); margin:8px 0 10px;"><em>Source/materials: Student-selected building and sources</em></p><div class="rubric-wrap"><table class="rubric"><tr><th>Level</th><th>Description</th></tr><tr><td class="cat">Beginning</td><td>Principles unclear or not connected to energy.</td></tr><tr><td class="cat">Developing</td><td>Principles named but diagrams or explanations are weak.</td></tr><tr><td class="cat">Proficient</td><td>Three principles clearly explained with labeled diagrams.</td></tr><tr><td class="cat">Exemplary</td><td>All Proficient criteria met, plus relates the principles to the building&#x27;s climate.</td></tr></table></div></div>
+        </div><div class="card quiz-link-card" style="margin-top:20px;">
+      <div>
+        <p class="section-label" style="margin-bottom:2px;">Exam Prep</p>
+        <p style="color:var(--sub); font-size:13px; margin:0;">This cycle's standards are covered in your <strong>DSA II Study Guide</strong> (Cycles 6-10).</p>
+      </div>
+      <a class="quiz-link-btn" href="dsa2.html">Open DSA II &#8599;</a>
+    </div>
+  <footer class="pagefoot">CTECS Architecture &middot; Grade 12</footer>
+</div>
+<script>
+function toggleAssign(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+</script>
+</body>
+</html>
